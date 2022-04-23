@@ -1,4 +1,4 @@
-package com.company;
+package TSP;
 
 public class Main {
 
