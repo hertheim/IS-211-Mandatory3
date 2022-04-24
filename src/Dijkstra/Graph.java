@@ -1,4 +1,4 @@
-package TSP.Djikstra;
+package Dijkstra;
 
 import java.util.ArrayList;
 
@@ -45,7 +45,6 @@ public class Graph {
     }
 
     public Vertex getVertexByValue(String value) {
-        //This is weird as well. Not sure what we should do if the vertex doesn't exist in the graph
         for(Vertex v: this.vertices) {
             if (v.getData() == value) {
                 return v;

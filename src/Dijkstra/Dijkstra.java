@@ -1,4 +1,4 @@
-package TSP.Djikstra;
+package Dijkstra;
 import java.util.*;
 
 public class Dijkstra {
@@ -17,7 +17,6 @@ public class Dijkstra {
         }
 
         distances.put(startingVertex.getData(), 0);
-
 
         while(queue.size() != 0){
             Vertex current = queue.poll().vertex;
@@ -40,8 +39,6 @@ public class Dijkstra {
         Dictionary distances = dijkstraDicts[0];
         Dictionary previous = dijkstraDicts[1];
         Integer distance = (Integer) distances.get(targetVertex.getData());
-        System.out.println("Shortest Distance between " + startingVertex.getData() + " and " + targetVertex.getData());
-        System.out.println(distance);
 
         ArrayList<Vertex> path = new ArrayList<>();
         Vertex v = targetVertex;
@@ -49,54 +46,70 @@ public class Dijkstra {
             path.add(0,v);
             v = (Vertex) previous.get(v.getData());
         }
-        System.out.println("Shortest Path");
+        StringBuilder shortestPath = new StringBuilder();
         for (Vertex pathVertex: path){
-            System.out.println(pathVertex.getData());
+             shortestPath.append(pathVertex.getData());
         }
+        System.out.println("Shortest Path between " + startingVertex.getData() + " and " + targetVertex.getData());
+        System.out.println("Path: " + "[" + shortestPath + "] " + "Distance: " + distance);
     }
 
     public static void dijkstraResultPrinter(Dictionary[] d){
-        System.out.println("Distances:\n");
+        /* Shows the shortest distance between the inputted vertex and all other vertices */
+        System.out.println("Distances:");
         for (Enumeration keys = d[0].keys(); keys.hasMoreElements();){
             String nextKey = keys.nextElement().toString();
             System.out.println(nextKey + ": " + d[0].get(nextKey));
         }
-        System.out.println("\nPrevious:\n");
+        /* Shows the previous visited vertex in the shortest path to all other vertices */
+        System.out.println("\nPrevious:");
         for (Enumeration keys = d[1].keys(); keys.hasMoreElements();) {
             String nextKey = keys.nextElement().toString();
             Vertex nextVertex = (Vertex) d[1].get(nextKey);
             System.out.println(nextKey + ": " + nextVertex.getData());
         }
+        System.out.println(" ");
     }
 
     public static void main(String[] args){
-        Graph testGraph = new Graph(true, false);
-        Vertex Oradea = testGraph.addVertex("Oradea");
-        Vertex Zerind = testGraph.addVertex("Zerind");
-        Vertex Arad = testGraph.addVertex("Arad");
-        Vertex Timisoara = testGraph.addVertex("Timisoara");
-        Vertex Lugoj = testGraph.addVertex("Lugoj");
-        Vertex Mehadia = testGraph.addVertex("Mehadia");
-        Vertex Drobeta = testGraph.addVertex("Drobeta");
-        Vertex Craiova = testGraph.addVertex("Craiova");
-        Vertex RimnicuVilcea = testGraph.addVertex("Rimnicu Vilcea");
-        Vertex Sibiu = testGraph.addVertex("Sibiu");
-        Vertex Fagaras = testGraph.addVertex("Fagaras");
-        Vertex Pitesti = testGraph.addVertex("Pitesti");
-        Vertex Bucharest = testGraph.addVertex("Bucharest");
-        Vertex Giurgiu = testGraph.addVertex("Giurgiu");
-        Vertex Urziceni = testGraph.addVertex("Urziceni");
-        Vertex Hirsova = testGraph.addVertex("Hirsova");
-        Vertex Eforie = testGraph.addVertex("Eforie");
-        Vertex Vaslui = testGraph.addVertex("Vaslui");
-        Vertex Iasi = testGraph.addVertex("Iasi");
-        Vertex Neamt = testGraph.addVertex("Neamt");
+        Graph network = new Graph(true, false);
+        Vertex a = network.addVertex("A");
+        Vertex b = network.addVertex("B");
+        Vertex c = network.addVertex("C");
+        Vertex d = network.addVertex("D");
+        Vertex e = network.addVertex("E");
+        Vertex f = network.addVertex("F");
 
-        testGraph.addEdge(Oradea, Zerind, 71);
+        ArrayList<Vertex> vertices = new ArrayList<>();
+        vertices.add(a);
+        vertices.add(b);
+        vertices.add(c);
+        vertices.add(d);
+        vertices.add(e);
+        vertices.add(f);
 
+        network.addEdge(a, b, 10);
+        network.addEdge(a, c, 5);
+        network.addEdge(a, e, 3);
+        network.addEdge(a, f, 12);
+        network.addEdge(b, c, 17);
+        network.addEdge(b, d, 9);
+        network.addEdge(b, e, 17);
+        network.addEdge(b, f, 12);
+        network.addEdge(c, d, 35);
+        network.addEdge(c, e, 3);
+        network.addEdge(c, f, 12);
+        network.addEdge(d, f, 12);
+        network.addEdge(e, f, 12);
 
-        dijkstraResultPrinter(dijkstra(testGraph, Oradea));
-        shortestPathBetween(testGraph, Zerind, Oradea);
+        for (Vertex startingVertex : vertices ) {
+            for (Vertex endVertex : network.getVertices()) {
+                shortestPathBetween(network, startingVertex, endVertex);
+                System.out.println(" ");
+            }
+            System.out.println("Summary for vertex " + startingVertex.getData() + ":\n");
+            dijkstraResultPrinter(dijkstra(network, startingVertex));
+        }
     }
 }
 

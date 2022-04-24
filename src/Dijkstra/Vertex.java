@@ -1,4 +1,4 @@
-package TSP.Djikstra;
+package Dijkstra;
 
 import java.util.ArrayList;
 
@@ -25,7 +25,6 @@ public class Vertex {
     }
 
     public void removeEdge(Vertex v) {
-        //I don't love this solution, we don't teach removeIf
         this.edges.removeIf(e -> e.getEnd().equals(v));
     }
 

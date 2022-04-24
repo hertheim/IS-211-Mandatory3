@@ -1,4 +1,4 @@
-package TSP.Djikstra;
+package Dijkstra;
 
 public class QueueObject implements Comparable<QueueObject> {
     public Vertex vertex;

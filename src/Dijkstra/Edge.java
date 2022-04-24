@@ -1,4 +1,4 @@
-package TSP.Djikstra;
+package Dijkstra;
 
 public class Edge {
     private Vertex start;

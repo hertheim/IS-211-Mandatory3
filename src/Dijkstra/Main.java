@@ -1,4 +1,4 @@
-package TSP;
+package Dijkstra;
 
 public class Main {
 
